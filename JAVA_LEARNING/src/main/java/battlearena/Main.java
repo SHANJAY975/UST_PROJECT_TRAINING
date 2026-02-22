@@ -1,6 +1,12 @@
 package battlearena;
 
-import static battlearena.Enemy.getNumberOfEnemies;
+import battlearena.enemies.Enemy;
+import battlearena.enemies.individualenemy.Orge;
+import battlearena.enemies.individualenemy.Zombie;
+import battlearena.heros.Hero;
+import battlearena.heros.weapons.Weapon;
+
+import static battlearena.enemies.Enemy.getNumberOfEnemies;
 
 public class Main {
     static void main() {
@@ -8,14 +14,45 @@ public class Main {
         Orge orge = new Orge( 20, 3);
         System.out.println("There are "+getNumberOfEnemies() +" enemies ready to fight");
 
-        battle(zombie, orge);
+
+//
+//        battle(zombie, orge);
         zombie.battleStance();
         orge.stareDown();
+
+        Weapon weapon = new Weapon("Sword", 5);
+        Hero hero = new Hero(25, 1);
+        hero.setWeapon(weapon);
+        hero.equipWeapon();
+        heroBattle(hero, zombie);
 
 //        System.out.println(zombie.getNumberOfEnemies());
 //        System.out.println(orge.getNumberOfEnemies());
 //        System.out.println(zombie.getId());
 //        System.out.println(orge.getId());
+    }
+
+    public static void heroBattle(Hero hero, Enemy enemy){
+        while (hero.getHealthPointsRemaining()>0 && enemy.getHealthPointsRemaining()>0){
+            System.out.println("--------------");
+            enemy.specialAttack();
+            System.out.println("Hero: "+hero.getHealthPointsRemaining()+" HP left");
+            System.out.println("Enemy: "+enemy.getHealthPointsRemaining()+" HP left");
+            enemy.attack();
+            hero.setHealthPointsRemaining(hero.getHealthPointsRemaining() - enemy.getAttackDamage());
+            hero.attack();
+            enemy.setHealthPointsRemaining(enemy.getHealthPointsRemaining() - hero.getAttackDamage());
+        }
+
+        System.out.println("---------------------");
+
+        if(hero.getHealthPointsRemaining()>0){
+            System.out.println("Hero wins");
+        }
+        else{
+            System.out.println("Enemy Wins");
+        }
+
     }
 
     public  static  void battle(Enemy e1, Enemy e2){

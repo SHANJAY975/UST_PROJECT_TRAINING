@@ -1,6 +1,8 @@
-package battlearena;
+package battlearena.enemies.individualenemy;
 
-public class Orge extends Enemy implements IOrge{
+import battlearena.enemies.Enemy;
+
+public class Orge extends Enemy implements IOrge {
     public Orge(int healthPoints, int attackDamage){
         super( healthPoints, attackDamage);
     }

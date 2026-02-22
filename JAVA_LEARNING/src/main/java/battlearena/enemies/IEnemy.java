@@ -1,4 +1,4 @@
-package battlearena;
+package battlearena.enemies;
 
 public interface IEnemy {
 
