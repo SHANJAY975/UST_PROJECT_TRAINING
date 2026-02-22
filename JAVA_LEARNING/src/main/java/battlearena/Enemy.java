@@ -1,8 +1,10 @@
 package battlearena;
 
 public class Enemy {
+    private  int id;
     private int healthPoints ;
     private int attackDamage;
+    private static  int numberOfEnemies;
 
     public Enemy(){
         System.out.println("Enemy is Created");
@@ -11,6 +13,8 @@ public class Enemy {
     public Enemy( int healthPoints, int attackDamage){
         this.healthPoints = healthPoints;
         this.attackDamage = attackDamage;
+        numberOfEnemies++;
+        this.id = numberOfEnemies;
     }
 
     public void talk(){
@@ -23,6 +27,13 @@ public class Enemy {
         System.out.println( "Enemy attacks for "+attackDamage+" damage");
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public static int getNumberOfEnemies() {
+        return numberOfEnemies;
+    }
 
     public int getHealthPoints() {
         return healthPoints;
