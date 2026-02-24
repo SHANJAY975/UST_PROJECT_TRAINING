@@ -1,6 +1,7 @@
 package com.ust.books.controller;
 
 import com.ust.books.entity.Book;
+import com.ust.books.exception.BookNotFoundException;
 import com.ust.books.request.BookRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -50,7 +51,10 @@ public class BookController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get Book by ID", description = "Retreive a specific book by Id")
     public Book getBookById(@Parameter(description = "ID of the book to be retrieved") @PathVariable @Min(value = 1) long id){
-        return books.stream().filter(book -> book.getId() == id).findFirst().orElse(null);
+        return books.stream()
+                .filter(book -> book.getId() == id)
+                .findFirst()
+                .orElseThrow(()->new BookNotFoundException("Book not Found. ID: "+id));
     }
 
     @PostMapping
@@ -66,24 +70,33 @@ public class BookController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Update a Book", description = "update the details of the book")
-    public void updateBook(@PathVariable @Min(value = 1) long id,@Valid @RequestBody BookRequest bookRequest){
+    public Book updateBook(@PathVariable @Min(value = 1) @Parameter(description = "ID of the book to be Updated") long id,@Valid @RequestBody BookRequest bookRequest){
         for(int i=0;i<books.size();i++){
             if(books.get(i).getId()== id){
                 Book updatedBook = convertToBook(id, bookRequest);
                 books.set(i, updatedBook);
-                return;
+                return updatedBook;
             }
         }
+        throw new BookNotFoundException("Book not Found -"+id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete book by Id", description = "delete the existing book from list")
-    public void deleteBook(@PathVariable @Min(value = 1) long id){
+    public void deleteBook(@Parameter(description = "ID of the book to be Deleted") @PathVariable @Min(value = 1) long id){
+        books.stream()
+                .filter(book -> book.getId() == id)
+                .findFirst()
+                .orElseThrow(()->new BookNotFoundException("Book not Found. ID: "+id));
         books.removeIf(book -> book.getId() == id);
     }
 
     private Book convertToBook(long id, BookRequest bookRequest){
         return new Book(id, bookRequest.getTitle(), bookRequest.getAuthor(), bookRequest.getCategory(), bookRequest.getRating());
     }
+
+
+
+
 }
