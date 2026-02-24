@@ -37,6 +37,8 @@ public class BookController {
         ));
     }
 
+
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get all books", description = "Retreive a list of all available Books")
@@ -83,7 +85,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete book by Id", description = "delete the existing book from list")
+    @Operation(summary = "Delete book with Id", description = "delete the existing book from list")
     public void deleteBook(@Parameter(description = "ID of the book to be Deleted") @PathVariable @Min(value = 1) long id){
         books.stream()
                 .filter(book -> book.getId() == id)
