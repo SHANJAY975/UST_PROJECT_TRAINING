@@ -63,17 +63,21 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(configurer ->
-                        configurer
-                        .requestMatchers("/h2-console/**",
-                                "/swagger-ui/**","/v3/api/**",
+                configurer
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/h2-console/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/webjars/**",
-                                "/docs"
-                        ).permitAll());
+                                "/webjars/**"
+                        ).permitAll()
+        );
 
         http.csrf(csrf-> csrf.disable());
         http.exceptionHandling(exceptionHandling->
                 exceptionHandling.authenticationEntryPoint(authenticationEntryPoint()));
+        http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         http.sessionManagement(session->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
