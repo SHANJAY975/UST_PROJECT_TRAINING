@@ -70,8 +70,10 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/v3/api-docs"
                         ).permitAll()
+                        .anyRequest().authenticated()
         );
 
         http.csrf(csrf-> csrf.disable());
