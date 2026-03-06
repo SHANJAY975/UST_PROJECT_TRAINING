@@ -70,8 +70,6 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
-
-
     private boolean isOldPasswordCorrect(String currentPassword, String oldPassword){
         return passwordEncoder.matches(oldPassword, currentPassword);
     }
