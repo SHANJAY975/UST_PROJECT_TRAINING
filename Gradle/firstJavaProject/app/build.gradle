@@ -7,16 +7,31 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+
     id 'application'
 }
 
+project.description ="First java project"
+project.version = 1.0
+
+// custom project properities
+project.ext.xyz="test"
 repositories {
     // Use Maven Central for resolving dependencies.
+    println project.name
+    println project.description
+    println project.version
+    println project.xyz
+    println project.property("xyz")
+
+    println "Repository"
     mavenCentral()
 }
 
 dependencies {
     // Use JUnit test framework.
+
+    println "Dependency"
     testImplementation libs.junit
 
     // This dependency is used by the application.
@@ -25,6 +40,7 @@ dependencies {
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
+    println "Java"
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
