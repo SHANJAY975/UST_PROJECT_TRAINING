@@ -6,14 +6,6 @@
  */
 
 
-println "Start"
 task firstTask{
-println "Gradle Rocks!!"
-    doFirst {
-        println "doFirst"
-    }
-    doLast {
-        println "doLast"
-    }
+    println "Gradle Rocks!!"
 }
-println "End"
