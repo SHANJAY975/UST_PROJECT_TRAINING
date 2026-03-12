@@ -1,4 +1,4 @@
-package com.bharath.gradle;
+package org.example;
 
 import java.io.IOException;
 import jakarta.servlet.ServletConfig;
