@@ -9,7 +9,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/firstWebApp" />
+            <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/integration" />
+            <option value="$PROJECT_DIR$/services" />
+            <option value="$PROJECT_DIR$/web" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,0 +1,38 @@
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'application'
+
+    version = 1.0
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation libs.junit
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+}
+
+// module specific dependency
+
+// direct dependencies in data build.gradle
+// another method to implement
+project(':web') {
+    dependencies {
+        implementation project(':services')
+    }
+}
+project(':services') {
+    dependencies {
+        implementation project(':data')
+    }
+}
+
+
